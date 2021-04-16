@@ -1,0 +1,27 @@
+Ansible Getting Started:
+
+- Ensure Python3 is on both Ansible controller and managed nodes.  
+
+- Install Ansible (yum|dnf|<other package manager> install ansible)
+
+- Ensure you have an SSH key to copy to your managed nodes (ssh-keygen -t rsa)
+
+- Copy this key over to the managed nodes (ssh-copy-id root@<managed server>)
+
+- Note: you can authenticate via different methods, and escalate privileges via sudo as well)
+
+- Place your managed nodes in the /etc/ansible/hosts file
+
+- Test out the documentation command `ansible-doc -l` and see what is available
+
+- Test out connectivity (within Ansible) to managed nodes: ansible all -m ping
+
+- Ready to write and run playbooks!
+
+- Run playbooks with ansible-playbook <playbook> command
+
+- Check for errors with ansible-playbook --check <playbook>
+
+- Install and use ansible-lint for further checking
+
+- Set up playbooks either in Cron jobs, scripts, manually, via Ansible Tower, or however you want to manage your environment
