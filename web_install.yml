@@ -1,0 +1,46 @@
+---
+- name: update
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Update
+    dnf:
+      update_only: yes
+      update_cache: yes
+
+- name: Install Apache on web and start service
+  hosts: web
+  gather_facts: false
+  tasks: 
+    - name: Install Apache
+      dnf:
+        name: httpd
+        state: latest
+    - name: Start Apache service
+      systemd: 
+        name: httpd
+        state: started
+    - name: Open TCP 80 and 443
+      firewalld:
+        service: "{{ item }}"
+        permanent: yes
+        state: enabled
+        immediate: yes
+      loop: 
+        - http
+        - https
+
+- name: Install MySQL and start service
+  hosts: db
+  gather_facts: false
+  tasks: 
+    - name: Install MySQL
+    dnf: 
+      name: mysql-server
+      state: latest
+    - name: Start MySQL service
+      systemd: 
+        name: mysqld
+        state: started
+        enabled: yes
+...
